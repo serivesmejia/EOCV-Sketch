@@ -1,0 +1,19 @@
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+ext {
+    gdxVersion = '1.9.14'
+    visuiVersion = '1.4.11'
+
+    kotlinVersion = '1.4.31'
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+        freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+        useIR = true
+    }
+}
