@@ -8,7 +8,11 @@ import com.badlogic.gdx.utils.viewport.Viewport
 import com.kotcrab.vis.ui.VisUI
 import kotlin.math.min
 
-class EOCVSketch : ApplicationAdapter() {
+class EOCVSketchApp : ApplicationAdapter() {
+
+    companion object {
+        const val VERSION = "1.0.0"
+    }
 
     private lateinit var viewport: Viewport
     private lateinit var stage: Stage
@@ -19,7 +23,10 @@ class EOCVSketch : ApplicationAdapter() {
         viewport = ScreenViewport()
         stage = Stage(viewport)
 
+        Gdx.input.inputProcessor = stage
         stage.addActor(MainWindow())
+
+        Gdx.graphics.setTitle("EasyOpenCV Sketching v$VERSION")
     }
 
     override fun render() {
