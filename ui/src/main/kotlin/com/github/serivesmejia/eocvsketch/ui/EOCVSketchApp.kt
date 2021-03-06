@@ -5,9 +5,11 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.viewport.ScreenViewport
-import com.badlogic.gdx.utils.viewport.Viewport
 import com.github.serivesmejia.eocvsketch.ui.widgets.HomeWindow
+import com.github.serivesmejia.eocvsketch.ui.widgets.TopMenuBar
+import com.github.serivesmejia.eocvsketch.ui.widgets.editor.Editor
 import com.kotcrab.vis.ui.VisUI
 import kotlin.math.min
 
@@ -18,30 +20,51 @@ class EOCVSketchApp : ApplicationAdapter() {
     }
 
     private lateinit var camera: OrthographicCamera
-    private lateinit var viewport: Viewport
     private lateinit var stage: Stage
 
+    private lateinit var menuBar: TopMenuBar
+
     private lateinit var homeWindow: HomeWindow
+    private lateinit var editor: Editor
+
+    lateinit var menuBarTable: Table
 
     override fun create() {
+        // Load VisUI, lib for nice UI elements
         VisUI.load()
 
+        // Setup camera, viewport and stage
         camera = OrthographicCamera()
-        viewport = ScreenViewport(camera)
+        stage = Stage(ScreenViewport(camera))
 
-        stage = Stage(viewport)
         Gdx.input.inputProcessor = stage
 
+        // Creating root table
+        menuBarTable = Table()
+        menuBarTable.setFillParent(true)
+
+        // Create top menu bar and adding to the top of root table
+        menuBar = TopMenuBar()
+        menuBarTable.add(menuBar.table).expandX().fillX().row()
+        menuBarTable.add().expand().fill()
+
+        // Editor
+        editor = Editor()
+        stage.addActor(editor)
+
+        // Add the root table to stage
+        stage.addActor(menuBarTable)
+
+        // Add home window to stage
         homeWindow = HomeWindow()
         stage.addActor(homeWindow)
-
-        Gdx.graphics.setTitle("EasyOpenCV Sketching v$VERSION")
     }
 
     override fun render() {
         Gdx.gl.glClearColor(44/255f, 44/255f, 44/255f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
-        viewport.apply();
+
+        stage.viewport.apply()
 
         val deltaTime = Gdx.graphics.deltaTime
         stage.act(min(deltaTime, 1 / 30f))
@@ -49,7 +72,7 @@ class EOCVSketchApp : ApplicationAdapter() {
     }
 
     override fun resize(width: Int, height: Int) {
-        viewport.update(width, height)
+        stage.viewport.update(width, height, true)
     }
 
     override fun dispose() {
