@@ -13,6 +13,8 @@ class HomeWindow : VisWindow("Home") {
 
     init {
         addCloseButton()
+        closeOnEscape()
+
         centerWindow()
         setSize(180f, 140f)
 

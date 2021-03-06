@@ -14,5 +14,4 @@ class TopMenuBar : MenuBar() {
         addMenu(editMenu)
     }
 
-
 }
