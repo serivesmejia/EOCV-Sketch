@@ -1,0 +1,20 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.4.31'
+}
+
+apply from: '../build.common.gradle'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    implementation 'com.github.serivesmejia:ducto:0.0.1'
+
+    compileOnly 'com.github.serivesmejia:EOCV-Sim:2.2.0'
+    compileOnly 'org.openpnp:opencv:4.3.0-2'
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+}

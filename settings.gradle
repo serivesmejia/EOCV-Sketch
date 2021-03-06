@@ -1,3 +1,4 @@
 rootProject.name = 'EOCV-Sketch'
 include 'ui'
+include 'core'
 
